@@ -1,7 +1,24 @@
+//sw produccion
+var url=window.location.href;
+var swLocation='/appdemo/sw.js';
+
 // AGREGAR BLOQUE 1
+// Solo registrar el service worker si estamos en localhost o en producción (HTTP/HTTPS)
+if (navigator.serviceWorker && window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+    var swLocation = '/appdemo/sw.js';
+    if (url.includes('localhost')) {
+        swLocation = '/sw.js';  // Ajuste para el entorno local
+    }
+    navigator.serviceWorker.register(swLocation).catch(error => {
+        console.error("Error al registrar el Service Worker:", error);
+    });
+}
 
 if ( navigator.serviceWorker){
-    navigator.serviceWorker.register('/sw.js');
+    if(url.includes('localhost')){
+        swLocation='/sw.js'
+    }
+    navigator.serviceWorker.register(swLocation);
 }
 // Referencias de jQuery
 
@@ -21,7 +38,24 @@ var txtMensaje  = $('#txtMensaje');
 // El usuario, contiene el ID del héroe seleccionado
 var usuario;
 
+postBtn.on('click', function() {
+    var mensaje = txtMensaje.val();
+    if (mensaje.trim() === '') {
+        cancelarBtn.click();
+        return;  // Evita crear un mensaje vacío
+    }
 
+    crearMensajeHTML(mensaje, usuario);
+});
+
+nuevoBtn.on('click', function() {
+    console.log("Botón de nuevo clickeado");
+    modal.removeClass('oculto');
+    modal.animate({ 
+        opacity: 1,
+        top: '50%' // Ajusta la posición del modal
+    }, 200);
+});
 
 
 // ===== Codigo de la aplicación
@@ -48,7 +82,7 @@ function crearMensajeHTML(mensaje, personaje) {
     timeline.prepend(content);
     cancelarBtn.click();
 
-}
+} 
 
 
 
@@ -94,13 +128,11 @@ salirBtn.on('click', function() {
 
 // Boton de nuevo mensaje
 nuevoBtn.on('click', function() {
-
     modal.removeClass('oculto');
     modal.animate({ 
-        marginTop: '-=1000px',
-        opacity: 1
+        opacity: 1,  // Asegúrate de que se vea el modal
+        top: '50%'    // Coloca el modal en la posición centrada
     }, 200 );
-
 });
 
 // Boton de cancelar mensaje

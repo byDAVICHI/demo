@@ -7,15 +7,17 @@ const DYNAMIC_CACHE = 'dynamic-v1';
 const INMUTABLE_CACHE = 'inmutable-v1';
 
 const APP_SHELL = [
-    '/',
+    //'/',
     'index.html',
     'css/style.css',
     'img/favicon.ico',
-    'img/avatars/hulk.jpg',
-    'img/avatars/ironman.jpg',
-    'img/avatars/spiderman.jpg',
-    'img/avatars/thor.jpg',
+    'img/avatars/carnage.jpg',
+    'img/avatars/greengoblin.jpg',
+    'img/avatars/punisher.jpg',
     'img/avatars/wolverine.jpg',
+    'img/avatars/venom.jpg',
+    'img/avatars/ghostrider.jpg',
+    'img/avatars/deadpool.jpg',
     'js/app.js',
     // AGREGAR HASTA EL SEGUNDO
     'js/sw-utils.js'
